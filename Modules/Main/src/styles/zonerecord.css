@@ -1,0 +1,69 @@
+.zone-record {
+    margin:0px;
+    padding: 10px;
+    height: 200px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.zone-record-remove {
+    position: absolute;
+    font-size: 24px;
+    right:20px;
+    top:15px;
+    opacity: 0.1;
+}
+
+.zone-record-confirm {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: white;
+    text-align: center;
+    background: #fAfAfA;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    border-radius: .25rem;
+}
+
+.zone-record-confirm-title {
+    margin: 20px;
+}
+
+.zone-record-confirm-yes {
+    margin: 20px;
+}
+
+.zone-record-confirm-no {
+    margin: 20px;
+}
+
+.zone-record-remove:hover {
+    opacity: 1;
+}
+
+
+.zone-record-container {
+    background: #fAfAfA;
+    padding: 20px;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    border-radius: .25rem;
+}
+
+.zone-record-row {
+    margin-bottom: 10px;
+}
+
+@keyframes recordRemove {
+  from { opacity: 1; }
+  to   { opacity: 0;}
+}
+
+.zone-record-remove-animation {
+    animation-name: recordRemove;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}

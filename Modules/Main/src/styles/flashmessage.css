@@ -1,0 +1,34 @@
+.flashmesage-box {
+    position:fixed;
+    width:50%;
+    min-width: 300px;
+    margin: 0 auto;
+    bottom:0px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 10px;
+    background-color: #343a40;
+    color: #fff;
+    border-radius: 25px 25px 0px 0px;
+    opacity: 0.9;
+}
+
+.flashmesage-message {
+    height:30px;
+    margin:10px 10px 0px 10px;
+}
+
+
+
+@keyframes flashmesageShow {
+  from { bottom:-50px }
+  to   { bottom:0px }
+}
+
+.flashmesage-show {
+    animation-name: flashmesageShow;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}

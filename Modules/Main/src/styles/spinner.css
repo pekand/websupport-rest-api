@@ -1,0 +1,49 @@
+.spinner {
+     display:none;
+     background-color:#137b85;
+     position:fixed;
+     top:300px;
+     left:0px;
+     width:60px;
+     height:50px;
+     padding:10px;
+     border-radius:0px 25px 25px 0px;
+     font-family:sans-serif;
+     box-sizing: unset;
+     z-index: 4000;
+}
+
+.spinner.show{
+     animation-name:showpinner;
+     animation-timing-function:ease-out;
+     animation-fill-mode:forwards;
+     animation-iteration-count:1;
+     animation-duration:0.5s;
+}
+
+@keyframes showpinner {from {left: -100px;}  to {left: 0px;}}
+
+.spinner.hide{
+     animation-name:hidespinner;
+     animation-timing-function:ease-out;
+     animation-fill-mode:forwards;
+     animation-iteration-count:1;
+     animation-duration:0.5s;
+}
+
+@keyframes hidespinner {from {left: 0px;}  to {left: -100px;}}
+
+.loading{
+     display:inline-block;
+     width:50px;
+     height:50px;
+     border:3px solid rgba(255,255,255,.3);
+     border-radius:50%;
+     border-top-color:#fff;
+ }
+
+ .spinner.show .loading{
+     animation:spin 1s ease-in-out infinite;
+ }
+
+@keyframes spin {to { transform: rotate(360deg); }}

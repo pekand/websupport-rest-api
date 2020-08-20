@@ -1,0 +1,43 @@
+.listpage {
+    z-index: 1000;
+}
+
+.zone {
+    
+}
+.zone.selected{
+    background:#ecf2e9;
+}
+
+.form-record-wrapper {
+    background: black;
+}
+
+.form-record-wrapper.show-as-modal {
+    z-index: 2000;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.5;
+}
+
+.form-record {
+    background: white;
+    opacity: 1;
+}
+
+.form-record.show-as-modal{
+    z-index: 2500;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    min-height: 10em;
+    width: 90%;*/
+}

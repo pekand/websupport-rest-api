@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="e" x1="36.107" x2="31.219" y1="17.214" y2="2.2713" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#02117c" offset="0"/>
+   <stop stop-color="#9af" offset="1"/>
+  </linearGradient>
+  <radialGradient id="f" cx="33.57" cy="26.915" r="18" gradientTransform="matrix(-.27953 -.54246 .94163 -.48521 16.004 50.716)" gradientUnits="userSpaceOnUse">
+   <stop offset="0"/>
+   <stop stop-color="#eee" offset="1"/>
+  </radialGradient>
+  <radialGradient id="g" cx="39.542" cy="28.547" r="18.081" gradientTransform="matrix(-.039363 -.65087 .98642 -.059657 7.42 56.976)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#909090" offset="0"/>
+   <stop stop-color="#b9b9b9" stop-opacity=".99107" offset="1"/>
+  </radialGradient>
+  <filter id="h" x="-.25" y="-.25" width="1.5" height="1.5" color-interpolation-filters="sRGB">
+   <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="2"/>
+   <feColorMatrix result="bluralpha" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 "/>
+   <feOffset dx="2" dy="2" in="bluralpha" result="offsetBlur"/>
+   <feMerge result="fbSourceGraphic">
+    <feMergeNode in="offsetBlur"/>
+    <feMergeNode in="SourceGraphic"/>
+   </feMerge>
+   <feColorMatrix in="fbSourceGraphic" result="fbSourceGraphicAlpha" values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/>
+   <feGaussianBlur in="fbSourceGraphicAlpha" result="blur" stdDeviation="2"/>
+   <feColorMatrix result="bluralpha" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0 "/>
+   <feOffset dx="2" dy="2" in="bluralpha" result="offsetBlur"/>
+   <feMerge>
+    <feMergeNode in="offsetBlur"/>
+    <feMergeNode in="fbSourceGraphic"/>
+   </feMerge>
+  </filter>
+ </defs>
+ <g transform="translate(0 -924.36)">
+  <g transform="matrix(2.0751 0 0 2.0751 2.1667 -1133.1)" filter="url(#h)">
+   <g transform="translate(-2.4107 26.573)">
+    <path transform="translate(0 988.36)" d="m50 14c0 4.4183-7.835 8-17.5 8s-17.5-3.5817-17.5-8 7.835-8 17.5-8 17.5 3.5817 17.5 8z" fill="url(#e)" fill-rule="evenodd" stroke="url(#f)" stroke-width="1px"/>
+    <path transform="translate(0 988.36)" d="m14.584 14.029s-0.10766 7.0536-0.03157 9.9437c1.5514 4.7142 8.3478 8.7394 18.305 8.5987 10.364-0.14643 17.062-4.8164 17.857-8.6607 0.12778-3.2581-0.01594-5.0265-0.13393-9.9107-0.42785 4.6594-7.518 8.5404-18.17 8.4267-9.1428-0.097596-17.256-3.4749-17.827-8.3977z" fill="url(#g)"/>
+   </g>
+   <g transform="translate(-2.4107 13.573)">
+    <path transform="translate(0 988.36)" d="m50 14c0 4.4183-7.835 8-17.5 8s-17.5-3.5817-17.5-8 7.835-8 17.5-8 17.5 3.5817 17.5 8z" fill="url(#e)" fill-rule="evenodd" stroke="url(#f)" stroke-width="1px"/>
+    <path transform="translate(0 988.36)" d="m14.584 14.029s-0.10766 7.0536-0.03157 9.9437c1.5514 4.7142 8.3478 8.7394 18.305 8.5987 10.364-0.14643 17.062-4.8164 17.857-8.6607 0.12778-3.2581-0.01594-5.0265-0.13393-9.9107-0.42785 4.6594-7.518 8.5404-18.17 8.4267-9.1428-0.097596-17.256-3.4749-17.827-8.3977z" fill="url(#g)"/>
+   </g>
+   <g transform="translate(-2.4107 .57333)">
+    <path transform="translate(0 988.36)" d="m50 14c0 4.4183-7.835 8-17.5 8s-17.5-3.5817-17.5-8 7.835-8 17.5-8 17.5 3.5817 17.5 8z" fill="url(#e)" fill-rule="evenodd" stroke="url(#f)" stroke-width="1px"/>
+    <path transform="translate(0 988.36)" d="m14.584 14.029s-0.10766 7.0536-0.03157 9.9437c1.5514 4.7142 8.3478 8.7394 18.305 8.5987 10.364-0.14643 17.062-4.8164 17.857-8.6607 0.12778-3.2581-0.01594-5.0265-0.13393-9.9107-0.42785 4.6594-7.518 8.5404-18.17 8.4267-9.1428-0.097596-17.256-3.4749-17.827-8.3977z" fill="url(#g)"/>
+   </g>
+  </g>
+ </g>
+</svg>
