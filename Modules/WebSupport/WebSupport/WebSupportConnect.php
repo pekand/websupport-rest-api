@@ -38,10 +38,21 @@ class WebSupportConnect {
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Date: ' . gmdate('Ymd\THis\Z', $time),
         ]);
-         
+        
+        //skip ssl in command line 
+        if (PHP_SAPI === 'cli-server') {
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        }
+
         $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            throw new \Exception($error_msg);
+        }
+
         curl_close($ch);
-         
+
         return @json_decode($response, true);
     }
 
