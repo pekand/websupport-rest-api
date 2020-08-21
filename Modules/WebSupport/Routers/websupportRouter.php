@@ -31,23 +31,51 @@ $router->get("/api/websupport/list/all", function($app) {
 
 $router->post("/api/websupport/zone/:domainName/record/create", function($app, $domainName) {
 
+    $type = @$_POST['type'];
+
     $data = [
         'type' => @$_POST['type'],
         'name' => @$_POST['name'],
         'content' => @$_POST['content'],
+        'prio' => @$_POST['prio'],
+        'port' => @$_POST['port'],
+        'weight' => @$_POST['weight'],
         'ttl' => @$_POST['ttl'],
     ];
+
+    if ($type !== "MX" && $type !== "SRV"){ 
+        unset($data['prio']);
+    }
+
+    if ($type !== "SRV"){ 
+        unset($data['port']);
+        unset($data['weight']);
+    }
 
     return json_encode($app->get('websupport')->createZoneRecordForCurrentUser($domainName, $data)) ;
 });
 
 $router->post("/api/websupport/zone/:domainName/record/update/:recordId", function($app, $domainName, $recordId) {
 
+    $type = @$_POST['type'];
+
     $data = [
         'name' => @$_POST['name'],
         'content' => @$_POST['content'],
+        'prio' => @$_POST['prio'],
+        'port' => @$_POST['port'],
+        'weight' => @$_POST['weight'],
         'ttl' => @$_POST['ttl'],
     ];
+
+    if ($type !== "MX" || $type !== "SRV"){ 
+        unset($data['prio']);
+    }
+
+    if ($type !== "SRV"){ 
+        unset($data['port']);
+        unset($data['weight']);
+    }
 
     return json_encode($app->get('websupport')->updateZoneRecordForCurrentUser($domainName, $recordId, $data)) ;
 });

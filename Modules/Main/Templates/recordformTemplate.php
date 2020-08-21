@@ -4,10 +4,10 @@
       <div class="col-12 col-lg-12">
         <form id="record-form" enctype="multipart/form-data" method="post">
           <h3 id="record-form-header" class="mt-5 mb-5">Create record</h3>
-          <div class="form-group">
+          <div id="record-group-type" class="form-group">
             <label for="record-type" class="mr-5">type</label>
             <div class="form-check form-check-inline">
-              <input class="form-check-input record-type" type="radio" name="type" id="record-type-A" value="A">
+              <input class="form-check-input record-type" type="radio" name="type" id="record-type-A" value="A" checked>
               <label class="form-check-label" for="record-type-A"
               data-toggle="tooltip" data-placement="top" title="Address Mapping record (A Record) also known as a DNS host record, stores a hostname and its corresponding IPv4 address. RFC 1035">A</label>
             </div>
@@ -48,19 +48,56 @@
             </div>
 
           </div>
-          <div class="form-group">
+
+          <div id="record-group-name" class="record-group form-group" >
             <label for="record-name">name</label>
-            <input type="text" class="form-control" id="record-name" name="name" placeholder="">
+            <input type="text" class="form-control" id="record-name" name="name" placeholder="" data-for="A AAAA MX ANAME CNAME NS TXT SRV" data-default="" data-required="true" data-validator="STRING" aria-describedby="record-name-feedback">
+            <div id="record-name-feedback" class="invalid-feedback">
+              Value cannot be empty. (Subdomain name or "@".)
+            </div>
           </div>
-          <div class="form-group">
+
+          <div id="record-group-content" class="record-group form-group">
             <label for="record-content">content</label>
-            <input type="text" class="form-control" id="record-content" name="content" placeholder="">
+            <input type="text" class="form-control" id="record-content" name="content" placeholder="" data-for="A AAAA MX ANAME CNAME NS TXT SRV" data-default="" data-required="true" data-validator="STRING" aria-describedby="record-content-feedback">
+            <div id="record-content-feedback" class="invalid-feedback">
+              Value cannot be empty. (Content must by ipv4 for the A record or ipv6 for the AAAA record.)
+            </div>
           </div>
-          <div class="form-group">
+
+          <div id="record-group-prio" class="record-group form-group hidden">
+            <label for="record-prio" data-toggle="tooltip" data-placement="top" title="">prio</label>
+            <input type="text" class="form-control" id="record-prio" name="prio" placeholder="" data-for="MX SRV" data-default="" data-required="true" data-validator="INT" aria-describedby="record-prio-feedback">
+            <div id="record-prio-feedback" class="invalid-feedback">
+              Value must be in interval from 0 to 65535 including
+            </div>
+          </div>
+
+          <div id="record-group-port" class="record-group form-group hidden">
+            <label for="record-port" data-toggle="tooltip" data-placement="top" title="">port</label>
+            <input type="text" class="form-control" id="record-port" name="port" placeholder="" data-for="SRV" data-default="" data-required="true" data-validator="INT" aria-describedby="record-port-feedback">
+            <div id="record-port-feedback" class="invalid-feedback">
+              Value must be in interval from 0 to 65535 including
+            </div>
+          </div>
+
+          <div id="record-group-weight" class="record-group form-group hidden">
+            <label for="record-weight" data-toggle="tooltip" data-placement="top" title="">weight</label>
+            <input type="text" class="form-control" id="record-weight" name="weight" placeholder="" data-for="SRV" data-default="" data-required="true" data-validator="INT" aria-describedby="record-weight-feedback">
+            <div id="record-weight-feedback" class="invalid-feedback">
+              Value must be in interval from 0 to 65535 including
+            </div>
+          </div>
+
+          <div id="record-group-ttl" class="record-group form-group">
             <label for="record-ttl" data-toggle="tooltip" data-placement="top" title="TTL (time to live) is a setting that tells the DNS resolver how long (unit is in seconds 1800s = 30min) to cache a query before requesting a new one.">ttl</label>
-            <input type="text" class="form-control" id="record-ttl" name="ttl" placeholder="">
+            <input type="text" class="form-control" id="record-ttl" name="ttl" placeholder="" data-for="A AAAA MX ANAME CNAME NS TXT SRV" data-default="600" data-required="false" data-validator="INT" value="600" aria-describedby="record-ttl-feedback">
+            <div id="record-ttl-feedback" class="invalid-feedback">
+              Value must be in interval from 0 to 65535 including
+            </div>
           </div>
-          <div class="form-group">
+
+          <div id="record-group-buttons" class="form-group">
             <button id="record-create-button" class="btn btn-primary">Create</button>
             <button id="record-update-button" class="btn btn-primary hidden">Update</button>
             <button id="record-create-cancel-button" class="btn btn-secondary">Cancel</button>

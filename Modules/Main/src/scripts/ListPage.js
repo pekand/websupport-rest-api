@@ -24,12 +24,22 @@ class ListPage {
     this.addrecord = document.getElementById('add-record');
     this.zoneHeader = document.getElementById('zone-header');
     this.addNewRecordButton = document.getElementById('button-add-new-record');
-    this.recordForm = document.getElementById('form-record');
+
+
     this.recordFormWrapper = document.getElementById('form-record-wrapper');
+    this.recordForm = document.getElementById('form-record');
+    this.recordFormHeader = document.getElementById('record-form-header');
+    this.recordName = document.getElementById('record-name');
+    this.recordContent = document.getElementById('record-content');
+    this.recordPrio = document.getElementById('record-prio');
+    this.recordPort = document.getElementById('record-port');
+    this.recordWeight = document.getElementById('record-weight');
+    this.recordTTL = document.getElementById('record-ttl');
+
     this.recordCreateButton = document.getElementById('record-create-button');
     this.recordUpdateButton = document.getElementById('record-update-button');
     this.recordCancelButton = document.getElementById('record-create-cancel-button');
-    this.recordFormHeader = document.getElementById('record-form-header');
+    
   }
 
   bindEvents() {
@@ -39,6 +49,33 @@ class ListPage {
     this.recordUpdateButton.addEventListener('click', this.recordUpdateButtonClick.bind(this));
     this.recordCancelButton.addEventListener('click', this.recordCancelButtonClick.bind(this));
     this.recordFormWrapper.addEventListener('click', this.removeWrapper.bind(this));
+
+    let recordTypeRadioButtons = document.getElementsByClassName('record-type');
+    for(let i=0; i<recordTypeRadioButtons.length; i++) {
+      recordTypeRadioButtons[i].addEventListener('change', this.selectRecordType.bind(this));
+    }
+  }
+
+  getSelectedRecordType() {
+    let recordTypeRadioButtons = document.getElementsByClassName('record-type');
+    for(let i=0; i<recordTypeRadioButtons.length; i++) {
+      if(recordTypeRadioButtons[i].checked){
+          return recordTypeRadioButtons[i].value;
+      }
+    }
+  }
+
+  selectRecordType() {
+    let selectedRecordType = this.getSelectedRecordType();
+
+    let recordFormInputs = document.querySelectorAll('[data-for]');
+    for(let i=0; i<recordFormInputs.length; i++) {
+      if(!recordFormInputs[i].dataset.for.toString().split(" ").includes(selectedRecordType)) {
+        recordFormInputs[i].parentElement.classList.add('hidden');
+      } else {
+        recordFormInputs[i].parentElement.classList.remove('hidden');
+      }
+    }
   }
 
   init(data) {
@@ -220,14 +257,67 @@ class ListPage {
     this.recordCreateButton.classList.remove('hidden');
     this.recordForm.classList.add('hidden');
     this.addNewRecordButton.innerHTML = 'add';
-    this.removeWrapper();
+    this.recordForm.classList.add('hidden');
+    this.recordForm.classList.remove('show-as-modal');
+    this.recordFormWrapper.classList.remove('show-as-modal');
     this.cleanRecordForm();
+  }
+
+  removeWrapper() {
+    this.hideRecordForm();
+  }
+
+  validateRecordForm() {
+    debugger;
+    let selectedRecordType = this.getSelectedRecordType();
+
+    let formIsValid = true;
+
+    let recordFormInputs = document.querySelectorAll('[data-required]');
+    for(let i=0; i<recordFormInputs.length; i++) {
+      recordFormInputs[i].classList.remove('is-invalid');
+
+      if(!recordFormInputs[i].dataset.for.toString().split(" ").includes(selectedRecordType)) {
+        continue;
+      }
+
+      if(recordFormInputs[i].dataset.required === 'true' && recordFormInputs[i].value.trim() == "") {
+        recordFormInputs[i].classList.add('is-invalid');
+        formIsValid = false;
+      } else if(recordFormInputs[i].dataset.required === 'false' && recordFormInputs[i].value.trim() == "") {
+        continue;
+      }
+
+      if(recordFormInputs[i].dataset.validator === 'INT' && ( 
+      !recordFormInputs[i].value.match(/^\d+$/) || !( 
+      0<=recordFormInputs[i].value &&
+      recordFormInputs[i].value<=65535))) {
+        recordFormInputs[i].classList.add('is-invalid');
+        formIsValid = false;
+      }
+    }
+
+    if (selectedRecordType == "A" && !this.recordContent.value.match(/^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$/)) {
+      this.recordContent.classList.add('is-invalid');
+      formIsValid = false;
+    }
+
+    if (selectedRecordType == "AAAA" && !this.recordContent.value.match(/^((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*::((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4}))*|((?:[0-9A-Fa-f]{1,4}))((?::[0-9A-Fa-f]{1,4})){7}$/)) {
+      this.recordContent.classList.add('is-invalid');
+      formIsValid = false;
+    }
+
+    return formIsValid;
   }
 
   recordCreateButtonClick(event) {
       event.preventDefault();
 
       if(this.selectedZone == null){
+        return;
+      }
+
+      if(!this.validateRecordForm()) {
         return;
       }
 
@@ -249,6 +339,14 @@ class ListPage {
       this.addZoneRecord(data.item.zone.service_id, data.item);
       this.hideRecordForm();
       this.app.flashmessage.show("New record created successfully");
+    }
+
+    if(typeof data.status != 'undefined' && data.status == 'error') {
+        for (x in data.errors) {
+          for (let i = 0; i<data.errors[x].length; i++) {
+            this.app.flashmessage.show("Error: "+ x + " "+data.errors[x][i]);
+          }
+        }
     }
   }
 
@@ -285,6 +383,11 @@ class ListPage {
 
   recordUpdateButtonClick(event) {
       event.preventDefault();
+
+      if(!this.validateRecordForm()) {
+        return;
+      }
+
       let formData = new FormData(document.getElementById('record-form'));
 
       let recordid = this.recordUpdateButton.dataset.recordid;
@@ -310,12 +413,14 @@ class ListPage {
       this.hideRecordForm();
       this.app.flashmessage.show("New record updated successfully");
     }
-  }
 
-  removeWrapper() {
-    this.recordForm.classList.add('hidden');
-    this.recordForm.classList.remove('show-as-modal');
-    this.recordFormWrapper.classList.remove('show-as-modal');
+    if(typeof data.status != 'undefined' && data.status == 'error') {
+        for (x in data.errors) {
+          for (let i = 0; i<data.errors[x].length; i++) {
+            this.app.flashmessage.show("Error: "+ x + " "+data.errors[x][i]);
+          }
+        }
+    }
   }
 
   cleanRecordForm() {
@@ -325,9 +430,14 @@ class ListPage {
       recordTypeRadio[i].disabled = false;
     }
 
-    document.getElementById('record-name').value = "";
-    document.getElementById('record-content').value = "";
-    document.getElementById('record-ttl').value = "";
+    document.getElementById('record-type-A').checked = true;
+    this.selectRecordType();
+
+    let recordFormInputs = document.querySelectorAll('[data-required]');
+    for(let i=0; i<recordFormInputs.length; i++) {
+      recordFormInputs[i].classList.remove('is-invalid');
+       recordFormInputs[i].value = recordFormInputs[i].dataset.default;
+    }
 
     this.addNewRecordButton.innerHTML = 'add';
     this.recordForm.classList.add('hidden');

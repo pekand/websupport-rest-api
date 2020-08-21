@@ -129,6 +129,14 @@ class ZoneRecord {
       recordEl.classList.add('zone-record-remove-animation');
       this.app.flashmessage.show("Record remove success");
     }
+
+    if(typeof data.status != 'undefined' && data.status == 'error') {
+        for (x in data.errors) {
+          for (let i = 0; i<data.errors[x].length; i++) {
+            this.app.flashmessage.show("Error for input "+ x + ". "+data.errors[x][i]);
+          }
+        }
+    }
   }
 
   removeAnimationFinished(recordEl){
