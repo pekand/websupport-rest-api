@@ -91,7 +91,7 @@
 
           <div id="record-group-ttl" class="record-group form-group">
             <label for="record-ttl" data-toggle="tooltip" data-placement="top" title="TTL (time to live) is a setting that tells the DNS resolver how long (unit is in seconds 1800s = 30min) to cache a query before requesting a new one.">ttl</label>
-            <input type="text" class="form-control" id="record-ttl" name="ttl" placeholder="" data-for="A AAAA MX ANAME CNAME NS TXT SRV" data-default="600" data-required="false" data-validator="INT" value="600" aria-describedby="record-ttl-feedback">
+            <input type="text" class="form-control" id="record-ttl" name="ttl" placeholder="" data-for="A AAAA MX ANAME CNAME NS TXT SRV" data-default="600" data-required="true" data-validator="INT" value="600" aria-describedby="record-ttl-feedback">
             <div id="record-ttl-feedback" class="invalid-feedback">
               Value must be in interval from 0 to 65535 including
             </div>

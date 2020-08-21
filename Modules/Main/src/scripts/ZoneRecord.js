@@ -83,13 +83,6 @@ class ZoneRecord {
         contentEl.appendChild(document.createTextNode(zoneRecord.content));
         zoneRecordContainerEl.appendChild(contentEl);
 
-        let ttlEl = document.createElement("div");
-        ttlEl.setAttribute("id", "zone-records-"+zoneRecord.id+'-ttl');
-        ttlEl.classList.add("zone-record-ttl");
-        ttlEl.classList.add("zone-record-row");
-        ttlEl.appendChild(document.createTextNode(zoneRecord.ttl));
-        zoneRecordContainerEl.appendChild(ttlEl);
-
     this.element = zoneRecordEl;
     return this.element;
   }
@@ -107,14 +100,16 @@ class ZoneRecord {
 
  removeRecordClickYes(e) {
     e.stopPropagation();
+    debugger;
     let zoneRecordRemoveButton = e.target;
     let recordId = zoneRecordRemoveButton.dataset.zonerecordid;
+    let zoneid = zoneRecordRemoveButton.dataset.zoneid;
     let zoneRecordRemoveDialog = document.getElementById('zone-record-confirm-'+recordId);
     zoneRecordRemoveDialog.classList.add('hidden');
 
     this.app.spinner.show();
     getUrl(
-        '/api/websupport/zone/php-assignment-6.ws/record/delete/'+recordId, 'delete', null,
+        '/api/websupport/zone/'+this.app.listpage.zoneNames[zoneid]+'/record/delete/'+recordId, 'delete', null,
         this.receiveRemoveRecord.bind(this),
         this.receiveRemoveRecord.bind(this)
     );

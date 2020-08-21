@@ -364,9 +364,14 @@ class ListPage {
       recordTypeRadio[i].disabled = true;
     }
 
-    document.getElementById('record-name').value = zoneRecord.name;
-    document.getElementById('record-content').value = zoneRecord.content;
-    document.getElementById('record-ttl').value = zoneRecord.ttl;
+    this.selectRecordType();
+
+    this.recordName.value = zoneRecord.name;
+    this.recordContent.value = zoneRecord.content;
+    this.recordPrio.value = zoneRecord.prio;
+    this.recordPort.value = zoneRecord.port;
+    this.recordWeight.value = zoneRecord.weight;
+    this.recordTTL.value = zoneRecord.ttl;
 
     this.recordUpdateButton.dataset.recordid = recordid;
     this.recordUpdateButton.dataset.zoneid = zoneid;
@@ -405,7 +410,6 @@ class ListPage {
 
       document.getElementById("zone-records-"+data.item.id+'-name').innerHTML = data.item.name;
       document.getElementById("zone-records-"+data.item.id+'-content').innerHTML = data.item.content;
-      document.getElementById("zone-records-"+data.item.id+'-ttl').innerHTML = data.item.ttl;
 
       this.updateZoneRecord(data.item.zone.service_id, data.item.id, data.item);
 

@@ -14433,9 +14433,13 @@ var ListPage = /*#__PURE__*/function () {
         recordTypeRadio[i].disabled = true;
       }
 
-      document.getElementById('record-name').value = zoneRecord.name;
-      document.getElementById('record-content').value = zoneRecord.content;
-      document.getElementById('record-ttl').value = zoneRecord.ttl;
+      this.selectRecordType();
+      this.recordName.value = zoneRecord.name;
+      this.recordContent.value = zoneRecord.content;
+      this.recordPrio.value = zoneRecord.prio;
+      this.recordPort.value = zoneRecord.port;
+      this.recordWeight.value = zoneRecord.weight;
+      this.recordTTL.value = zoneRecord.ttl;
       this.recordUpdateButton.dataset.recordid = recordid;
       this.recordUpdateButton.dataset.zoneid = zoneid;
       this.recordFormHeader.innerHTML = "Udate record " + zoneRecord.name;
@@ -14468,7 +14472,6 @@ var ListPage = /*#__PURE__*/function () {
       if (typeof data.status != 'undefined' && data.status == 'success') {
         document.getElementById("zone-records-" + data.item.id + '-name').innerHTML = data.item.name;
         document.getElementById("zone-records-" + data.item.id + '-content').innerHTML = data.item.content;
-        document.getElementById("zone-records-" + data.item.id + '-ttl').innerHTML = data.item.ttl;
         this.updateZoneRecord(data.item.zone.service_id, data.item.id, data.item);
         this.hideRecordForm();
         this.app.flashmessage.show("New record updated successfully");
@@ -14844,12 +14847,6 @@ var ZoneRecord = /*#__PURE__*/function () {
       contentEl.classList.add("zone-record-row");
       contentEl.appendChild(document.createTextNode(zoneRecord.content));
       zoneRecordContainerEl.appendChild(contentEl);
-      var ttlEl = document.createElement("div");
-      ttlEl.setAttribute("id", "zone-records-" + zoneRecord.id + '-ttl');
-      ttlEl.classList.add("zone-record-ttl");
-      ttlEl.classList.add("zone-record-row");
-      ttlEl.appendChild(document.createTextNode(zoneRecord.ttl));
-      zoneRecordContainerEl.appendChild(ttlEl);
       this.element = zoneRecordEl;
       return this.element;
     }
@@ -14870,12 +14867,14 @@ var ZoneRecord = /*#__PURE__*/function () {
     key: "removeRecordClickYes",
     value: function removeRecordClickYes(e) {
       e.stopPropagation();
+      debugger;
       var zoneRecordRemoveButton = e.target;
       var recordId = zoneRecordRemoveButton.dataset.zonerecordid;
+      var zoneid = zoneRecordRemoveButton.dataset.zoneid;
       var zoneRecordRemoveDialog = document.getElementById('zone-record-confirm-' + recordId);
       zoneRecordRemoveDialog.classList.add('hidden');
       this.app.spinner.show();
-      getUrl('/api/websupport/zone/php-assignment-6.ws/record/delete/' + recordId, 'delete', null, this.receiveRemoveRecord.bind(this), this.receiveRemoveRecord.bind(this));
+      getUrl('/api/websupport/zone/' + this.app.listpage.zoneNames[zoneid] + '/record/delete/' + recordId, 'delete', null, this.receiveRemoveRecord.bind(this), this.receiveRemoveRecord.bind(this));
     }
   }, {
     key: "receiveRemoveRecord",
