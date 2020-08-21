@@ -14340,7 +14340,6 @@ var ListPage = /*#__PURE__*/function () {
   }, {
     key: "validateRecordForm",
     value: function validateRecordForm() {
-      debugger;
       var selectedRecordType = this.getSelectedRecordType();
       var formIsValid = true;
       var recordFormInputs = document.querySelectorAll('[data-required]');
@@ -14708,12 +14707,10 @@ function getUrl(url, method, data, callback, errorcallback, accessToken) {
     if (this.readyState == 4) {
       if (this.status == 200) {
         if (typeof callback === "function") {
-          console.log(this.responseText);
           callback(JSON.parse(this.responseText));
         }
       } else {
         if (typeof errorcallback === "function") {
-          console.log(this.responseText);
           errorcallback(this.responseText);
         }
       }

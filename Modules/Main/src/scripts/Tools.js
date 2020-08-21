@@ -4,12 +4,10 @@ function getUrl (url, method, data, callback, errorcallback, accessToken) {
         if (this.readyState == 4) {
             if (this.status == 200) {
                 if (typeof callback === "function") {
-                    console.log(this.responseText);
                     callback(JSON.parse(this.responseText));
                 }
             } else {
                 if (typeof errorcallback === "function") {
-                    console.log(this.responseText);
                     errorcallback(this.responseText);
                 }
             }

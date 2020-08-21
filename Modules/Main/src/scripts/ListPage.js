@@ -268,7 +268,6 @@ class ListPage {
   }
 
   validateRecordForm() {
-    debugger;
     let selectedRecordType = this.getSelectedRecordType();
 
     let formIsValid = true;
